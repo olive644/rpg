@@ -1,0 +1,192 @@
+/* Fonte e reset */
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 2rem;
+    background-color: #DC143C;
+    color: #f0f0f0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Fundo com estrada escarlate animada */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 0, 0, 0.1) 0px,
+        rgba(255, 0, 0, 0.15) 2px,
+        transparent 4px,
+        transparent 20px
+    );
+    animation: estrada 10s linear infinite;
+    z-index: 0;
+}
+
+@keyframes estrada {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 100%;
+    }
+}
+
+/* Layout geral */
+.memorial-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    max-width: 1000px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* Carta Pokémon */
+.pokemon-card-container {
+    perspective: 1500px;
+}
+
+.pokemon-card {
+    width: 300px;
+    height: 420px;
+    background: linear-gradient(160deg, #8b0000, #dc143c);
+    border-radius: 15px;
+    border: 8px solid #ffdddd;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.6s ease, box-shadow 0.6s ease;
+    transform-style: preserve-3d;
+}
+
+/* Reflexo holográfico só na carta */
+.pokemon-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        130deg,
+        transparent,
+        rgba(255, 255, 255, 0.4) 45%,
+        rgba(255, 255, 255, 0.4) 55%,
+        transparent
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    transform: skewX(-20deg) translateX(-150%);
+    pointer-events: none;
+}
+
+.pokemon-card-container:hover .pokemon-card::before {
+    opacity: 1;
+    animation: holo-shine 1.2s ease-out;
+}
+
+@keyframes holo-shine {
+    from { transform: skewX(-20deg) translateX(-150%); }
+    to { transform: skewX(-20deg) translateX(150%); }
+}
+
+.card-image {
+    margin: 15px;
+    border: 4px solid #d1d5db;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    display: block;
+}
+
+.card-info {
+    padding: 0 20px;
+}
+
+.card-info .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 5px;
+}
+
+.pokemon-name {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.hp {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Texto à direita */
+.memorial-text {
+    max-width: 500px;
+    text-align: left;
+}
+
+.memorial-text h1 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-top: 0;
+    line-height: 1.2;
+}
+
+.memorial-text h2 {
+    color: #ffcc00;
+    margin-top: 0;
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.memorial-text p {
+    line-height: 1.7;
+    font-size: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.signature {
+    text-align: right;
+    font-style: italic;
+    margin-top: 1.5rem;
+    color: #ddd;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .memorial-layout {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .memorial-text {
+        text-align: center;
+    }
+    .memorial-text h2 {
+        display: block;
+    }
+}
+
